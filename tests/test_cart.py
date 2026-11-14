@@ -1,4 +1,3 @@
-
 from selenium import webdriver
 from selenium.webdriver.common.by import By
 from selenium.webdriver.support.ui import WebDriverWait
@@ -96,7 +95,8 @@ def test_remove_product_from_cart():
 
         # Open shopping cart
         driver.find_element(By.CLASS_NAME, "shopping_cart_link").click()
-
+        wait.until(EC.url_contains("cart.html"))
+        wait.until(EC.visibility_of_element_located((By.CLASS_NAME, "cart_item")))
         # Remove backpack
         wait.until(
             EC.element_to_be_clickable(

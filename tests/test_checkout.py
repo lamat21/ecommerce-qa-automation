@@ -1,4 +1,6 @@
 
+from asyncio import wait
+
 from selenium import webdriver
 from selenium.webdriver.common.by import By
 from selenium.webdriver.support.ui import WebDriverWait
@@ -35,11 +37,14 @@ def test_complete_checkout():
 
         wait.until(EC.url_contains("cart.html"))
 
-        # Verify product is in cart
-        assert driver.find_element(
-            By.CLASS_NAME, "inventory_item_name"
-        ).text == "Sauce Labs Backpack"
-
+       # Verify product is in cart
+        wait.until(EC.visibility_of_element_located((By.CLASS_NAME, "cart_item")))
+        wait.until(
+    EC.text_to_be_present_in_element(
+        (By.CSS_SELECTOR, ".cart_item .inventory_item_name"),
+        "Sauce Labs Backpack"
+    )
+)
         # Step 4: Start checkout
         driver.find_element(By.ID, "checkout").click()
 
