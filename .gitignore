@@ -6,3 +6,4 @@ __pycache__/
 report.html
 checkout_failure.png
 .env
+chromedriver_*.log

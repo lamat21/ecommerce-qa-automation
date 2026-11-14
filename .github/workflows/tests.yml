@@ -36,10 +36,12 @@ jobs:
           name: selenium-test-report
           path: report.html
 
+      
       - name: Upload ChromeDriver logs
         if: failure()
         uses: actions/upload-artifact@v4
         with:
           name: chromedriver-debug-logs
-          path: chromedriver.log
-          if-no-files-found: ignore
+          path: chromedriver_*.log
+          if-no-files-found: warn
+
