@@ -9,8 +9,7 @@ on:
 
 jobs:
   selenium-tests:
-    runs-on: ubuntu-latest
-
+  runs-on: ubuntu-24.04
     steps:
       - name: Checkout repository
         uses: actions/checkout@v4
@@ -35,3 +34,11 @@ jobs:
         with:
           name: selenium-test-report
           path: report.html
+
+      - name: Upload ChromeDriver logs
+        if: failure()
+        uses: actions/upload-artifact@v4
+        with:
+          name: chromedriver-debug-logs
+          path: chromedriver.log
+          if-no-files-found: ignore

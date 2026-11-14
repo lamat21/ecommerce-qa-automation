@@ -1,21 +1,23 @@
-
 import os
-import tempfile
 from selenium import webdriver
+from selenium.webdriver.chrome.service import Service
 
 
 def create_driver():
     options = webdriver.ChromeOptions()
 
-    if os.getenv("CI") == "true":
+    if os.getenv("CI", "").lower() == "true":
         options.add_argument("--headless=new")
         options.add_argument("--no-sandbox")
         options.add_argument("--disable-dev-shm-usage")
-        options.add_argument("--disable-gpu")
         options.add_argument("--window-size=1920,1080")
 
-    # Give each browser its own temporary profile
-    profile = tempfile.mkdtemp(prefix="selenium_chrome_")
-    options.add_argument(f"--user-data-dir={profile}")
+    service = Service(
+        service_args=["--verbose"],
+        log_output="chromedriver.log"
+    )
 
-    return webdriver.Chrome(options=options)
+    return webdriver.Chrome(
+        options=options,
+        service=service
+    )
