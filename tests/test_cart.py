@@ -66,8 +66,7 @@ def test_add_product_to_cart():
         driver.quit()
 
 def test_remove_product_from_cart():
-    driver = webdriver.Chrome()
-
+    driver = create_driver()
     try:
         driver.get("https://www.saucedemo.com/")
         wait = WebDriverWait(driver, 10)

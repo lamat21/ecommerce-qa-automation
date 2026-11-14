@@ -33,8 +33,7 @@ def test_valid_login():
         driver.quit()
 
 def test_invalid_login():
-    driver = webdriver.Chrome()
-
+    driver = create_driver()
     try:
         driver.get("https://www.saucedemo.com/")
 
