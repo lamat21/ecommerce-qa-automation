@@ -1,4 +1,3 @@
-
 import os
 import time
 import tempfile
@@ -14,6 +13,15 @@ def create_driver():
 
     for attempt in range(1, max_attempts + 1):
         options = webdriver.ChromeOptions()
+
+        # Disable Chrome's password manager and breach warning popup
+        prefs = {
+            "credentials_enable_service": False,
+            "profile.password_manager_enabled": False,
+            "profile.password_manager_leak_detection": False,
+        }
+        options.add_experimental_option("prefs", prefs)
+        options.add_argument("--incognito")
 
         if is_ci:
             options.add_argument("--headless=new")
