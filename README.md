@@ -1,6 +1,9 @@
 
 # E-commerce QA Automation Framework
 
+
+[![E-commerce QA Automated Tests](https://github.com/lamat21/ecommerce-qa-automation/actions/workflows/tests.yml/badge.svg)](https://github.com/lamat21/ecommerce-qa-automation/actions/workflows/tests.yml)
+
 Automated UI testing project for an e-commerce website using Python, Selenium WebDriver, and Pytest.
 
 ## Technologies
