@@ -46,20 +46,51 @@ def test_complete_checkout():
         wait.until(EC.url_contains("checkout-step-one.html"))
 
         # Step 5: Enter customer information
-        driver.find_element(By.ID, "first-name").send_keys("Test")
-        driver.find_element(By.ID, "last-name").send_keys("User")
-        driver.find_element(By.ID, "postal-code").send_keys("L5B 1M1")
+        
+        # Step 5: Enter customer information
 
-        driver.find_element(By.ID, "continue").click()
+        first_name = wait.until(
+            EC.visibility_of_element_located(
+                (By.ID, "first-name")
+            )
+        )
+        first_name.send_keys("Test")
 
+        last_name = wait.until(
+            EC.visibility_of_element_located(
+                (By.ID, "last-name")
+            )
+        )
+        last_name.send_keys("User")
+
+        postal_code = wait.until(
+            EC.visibility_of_element_located(
+                (By.ID, "postal-code")
+            )
+        )
+        postal_code.send_keys("L5B 1M1")
+
+        wait.until(
+            EC.element_to_be_clickable(
+                (By.ID, "continue")
+            )
+        ).click()
+
+
+        
         # Step 6: Verify checkout overview
         wait.until(EC.url_contains("checkout-step-two.html"))
 
-        assert driver.find_element(
-            By.CLASS_NAME, "inventory_item_name"
-        ).text == "Sauce Labs Backpack"
+        # Wait until the backpack appears
+        wait.until(
+            EC.text_to_be_present_in_element(
+                (By.CSS_SELECTOR, ".cart_item .inventory_item_name"),
+                "Sauce Labs Backpack"
+            )
+        )
 
-        # Step 7: Complete checkout
+        print("Checkout overview verified!")
+
        
         # Step 7: Complete checkout
         finish_button = wait.until(

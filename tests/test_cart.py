@@ -40,19 +40,27 @@ def test_add_product_to_cart():
 
         assert cart_badge.text == "1"
 
+       
         # Open shopping cart
-        driver.find_element(By.CLASS_NAME, "shopping_cart_link").click()
+        wait.until(
+            EC.element_to_be_clickable(
+                (By.CLASS_NAME, "shopping_cart_link")
+            )
+        ).click()
 
-        # Verify correct product
-        product_name = wait.until(
-            EC.visibility_of_element_located(
-                (By.CLASS_NAME, "inventory_item_name")
+        # Wait for cart page
+        wait.until(EC.url_contains("cart.html"))
+
+        # Verify the correct product is displayed
+        wait.until(
+            EC.text_to_be_present_in_element(
+                (By.CSS_SELECTOR, ".cart_item .inventory_item_name"),
+                "Sauce Labs Backpack"
             )
         )
 
-        assert product_name.text == "Sauce Labs Backpack"
-
         print("Add to cart test PASSED!")
+
 
     finally:
         driver.quit()

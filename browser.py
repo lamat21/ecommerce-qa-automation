@@ -1,5 +1,6 @@
 
 import os
+import tempfile
 from selenium import webdriver
 
 
@@ -10,6 +11,11 @@ def create_driver():
         options.add_argument("--headless=new")
         options.add_argument("--no-sandbox")
         options.add_argument("--disable-dev-shm-usage")
+        options.add_argument("--disable-gpu")
         options.add_argument("--window-size=1920,1080")
+
+    # Give each browser its own temporary profile
+    profile = tempfile.mkdtemp(prefix="selenium_chrome_")
+    options.add_argument(f"--user-data-dir={profile}")
 
     return webdriver.Chrome(options=options)
