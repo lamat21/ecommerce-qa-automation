@@ -3,11 +3,10 @@ from selenium import webdriver
 from selenium.webdriver.common.by import By
 from selenium.webdriver.support.ui import WebDriverWait
 from selenium.webdriver.support import expected_conditions as EC
-
+from browser import create_driver
 
 def test_add_product_to_cart():
-    driver = webdriver.Chrome()
-
+    driver = create_driver()
     try:
         driver.get("https://www.saucedemo.com/")
         driver.maximize_window()

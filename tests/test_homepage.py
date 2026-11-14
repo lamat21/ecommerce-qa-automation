@@ -1,10 +1,9 @@
 
 from selenium import webdriver
-
+from browser import create_driver
 
 def test_homepage_loads():
-    driver = webdriver.Chrome()
-
+    driver = create_driver()
     try:
         driver.get("https://www.saucedemo.com/")
 
